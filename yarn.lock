@@ -1127,6 +1127,14 @@
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.5.3.tgz#1c3b71b091eaeaf5924538006b7f70603ce63d38"
   integrity sha512-Jugo5V/1bS0fRhy2z8+cUAHEyWOATaz4rbyLVvcFs7+dXp5HfwpEwzF1Q11bB10ApUqHf+yTauxI0UXQDwGrbA==
 
+"@types/react-native-vector-icons@^6.4.0":
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/@types/react-native-vector-icons/-/react-native-vector-icons-6.4.0.tgz#3ff6b29c8e831f11364c12801ae7966dab8dcbe0"
+  integrity sha512-UNRMIMbqeryNDQvZVZoPyqXIKLWmLRInhN5gDySxquJcZvWNW+1NSm4lXQlRdzC9Da3mSU1QEppoeI438f2JRw==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
 "@types/react-native@*", "@types/react-native@^0.57.51":
   version "0.57.51"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.51.tgz#adcb02141734b72822848351be734971e508f5f1"
@@ -1134,6 +1142,14 @@
   dependencies:
     "@types/prop-types" "*"
     "@types/react" "*"
+
+"@types/react-navigation@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@types/react-navigation/-/react-navigation-3.0.6.tgz#97ab418eb6e29919f0f78785c5c360954e886d75"
+  integrity sha512-4JoHIR7qrjwYDmJiuvYEOgme2Nl5ieiDEM5eRMHV3HkRiUmeHRlVfmqTCljcDUwkFJHhK2JZfyhppA/CZY+M8w==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
 
 "@types/react-test-renderer@^16.8.1":
   version "16.8.1"
@@ -1169,6 +1185,11 @@
   version "12.0.12"
   resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-12.0.12.tgz#45dd1d0638e8c8f153e87d296907659296873916"
   integrity sha512-SOhuU4wNBxhhTHxYaiG5NY4HBhDIDnJF60GU+2LqHAdKKer86//e4yg69aENCtQ04n0ovz+tq2YPME5t5yp4pw==
+
+D@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/D/-/D-1.0.0.tgz#c348a4e034f72847be51206fc530fc089e9cc2a9"
+  integrity sha512-nQvrCBu7K2pSSEtIM0EEF03FVjcczCXInMt3moLNFbjlWx6bZrX72uT6/1uAXDbnzGUAx9gTyDiQ+vrFi663oA==
 
 abab@^2.0.0:
   version "2.0.0"
