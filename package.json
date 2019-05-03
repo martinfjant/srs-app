@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@expo/samples": "2.1.1",
+    "@expo/vector-icons": "^10.0.1",
+    "@types/expo__vector-icons": "^9.0.1",
     "@types/react-native-vector-icons": "^6.4.0",
     "@types/react-navigation": "^3.0.6",
     "D": "^1.0.0",
