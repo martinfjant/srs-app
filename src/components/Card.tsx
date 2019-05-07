@@ -1,18 +1,39 @@
 import * as React from 'react';
-import { Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 export interface CardProps {
   card: any;
+  index: number;
+  turned: boolean;
 }
 
 export interface CardState {
   open: boolean;
 }
 
-class Card extends React.Component<CardProps, CardState> {
-  state = { open: true };
-  render() {
-    return <Text>Kort</Text>;
-  }
-}
+const Card = (card: any, index: number): React.ReactElement => {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.text}>{card.front}</Text>
+      <Text style={styles.text}>{card.back}</Text>
+    </View>
+  );
+};
 
+const styles = StyleSheet.create({
+  card: {
+    flex: 1,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#A7A7AA',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    maxHeight: 400,
+    marginTop: 40,
+  },
+  text: {
+    textAlign: 'center',
+    fontSize: 50,
+    backgroundColor: 'transparent',
+  },
+});
 export default Card;
