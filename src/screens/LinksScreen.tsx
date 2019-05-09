@@ -1,5 +1,16 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
+const TEST_QUERY = gql`
+  {
+    cards {
+      id,
+      front,
+      back
+    }
+  }
+`;
 
 export default class LinksScreen extends React.Component {
   static navigationOptions = {
@@ -9,7 +20,11 @@ export default class LinksScreen extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Text>Here will be stuff</Text>
+        <Query query={TEST_QUERY}>
+          {({ data, loading }) => loading 
+          ? <Text>Laddar.</Text> 
+          : data.cards.map(card => <Text key={card.id}>{card.front}</Text>)}
+        </Query>
       </ScrollView>
     );
   }

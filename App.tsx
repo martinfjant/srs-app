@@ -1,13 +1,19 @@
-import React, { ReactPropTypes } from 'react';
+import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font } from 'expo';
 import AppNavigator from './src/navigation/AppNavigator';
 import { Ionicons } from '@expo/vector-icons';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
 
-interface IPropTypes extends ReactPropTypes {
+const client = new ApolloClient({
+  uri: 'http://localhost:3000/graphql'
+});
+
+interface AppProps extends React.ReactPropTypes {
   skipLoadingScreen: boolean;
 }
-export default class App extends React.Component<IPropTypes> {
+export default class App extends React.Component<AppProps> {
   state = {
     isLoadingComplete: false,
   };
@@ -23,10 +29,12 @@ export default class App extends React.Component<IPropTypes> {
       );
     }
     return (
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
-        <AppNavigator />
-      </View>
+      <ApolloProvider client={client}>
+        <View style={styles.container}>
+          {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
+          <AppNavigator />
+        </View>
+      </ApolloProvider>
     );
   }
 

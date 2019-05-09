@@ -12,7 +12,7 @@ export interface CardState {
 
 const Card = (card: any, index: number): React.ReactElement => {
   return (
-    <View style={styles.card}>
+    <View style={styles.card} key={card.id}>
       <Text style={styles.text}>{card.front}</Text>
       <Text style={styles.text}>{card.back}</Text>
     </View>
