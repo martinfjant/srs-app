@@ -9,8 +9,7 @@ import {
 } from 'react-native';
 import { BlurView } from 'expo';
 
-import Card from '../components/Card';
-import SwipeStack from '../components/SwipeStack';
+import SwipeStack from '../components/SwipeStack/SwipeStack';
 
 export default class HomeScreen extends React.Component {
   state = { hideStack: false, correct: 0 };

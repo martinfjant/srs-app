@@ -1,4 +1,4 @@
-import React, { ReactPropTypes } from 'react';
+import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font } from 'expo';
 import AppNavigator from './src/navigation/AppNavigator';
@@ -7,13 +7,13 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
 const client = new ApolloClient({
-  uri: 'localhost',
+  uri: 'http://localhost:3000/graphql'
 });
 
-interface IPropTypes extends ReactPropTypes {
+interface AppProps extends React.ReactPropTypes {
   skipLoadingScreen: boolean;
 }
-export default class App extends React.Component<IPropTypes> {
+export default class App extends React.Component<AppProps> {
   state = {
     isLoadingComplete: false,
   };
