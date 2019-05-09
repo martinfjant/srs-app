@@ -6,10 +6,10 @@ import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 
 export interface SwipeStackProps {
-  hidden: boolean;
-  cards: any;
-  onFinish: any;
-  onRight: any;
+    hidden: boolean;
+    cards: any;
+    onFinish: any;
+    onRight: any;
 }
 
 const CARD_QUERY = gql`
@@ -23,24 +23,23 @@ const CARD_QUERY = gql`
 `;
 
 const SwipeStack: React.FunctionComponent<SwipeStackProps> = (props: SwipeStackProps): any => {
-  return (
-    <Query query={CARD_QUERY}>
-      {
-        ({ data, loading }: any) =>
-        {
-          if (loading) return <Text>Laddar.</Text>;
-          if (!loading) {
-            <Swiper
-              cards={data.cards}
-              renderCard={Card}
-              onSwipedRight={props.onRight}
-            />;
+    return (
+        <Query query={CARD_QUERY}>
+            {
+                ({ data, loading }: any) => {
+                    if (loading) return <Text>Laddar.</Text>;
+                    if (!loading) {
+                        return <Swiper
+                            cards={data.cards}
+                            renderCard={Card}
+                            onSwipedRight={props.onRight}
+                        />;
 
-          }
-        }
-      }
-    </Query>
-  );
+                    }
+                }
+            }
+        </Query>
+    );
 };
 
 export default SwipeStack;

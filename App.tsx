@@ -1,13 +1,24 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, AsyncStorage } from 'react-native';
 import { AppLoading, Asset, Font } from 'expo';
 import AppNavigator from './src/navigation/AppNavigator';
 import { Ionicons } from '@expo/vector-icons';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
+
 const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql'
+  uri: 'http://localhost:3000/graphql',
+  request: async (operation) => {
+
+    const token = await AsyncStorage.getItem('TOKEN');
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : '',
+      },
+
+    });
+  },
 });
 
 interface AppProps extends React.ReactPropTypes {
