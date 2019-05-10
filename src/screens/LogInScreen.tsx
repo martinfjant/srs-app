@@ -30,6 +30,7 @@ class LogInScreen extends React.Component<any> {
           {props =>
             (
               <View>
+                <Text>E-mail:</Text>
                 <TextInput
                   style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                   onChangeText={props.handleChange('email')}
@@ -37,6 +38,7 @@ class LogInScreen extends React.Component<any> {
                   value={props.values.email}
 
                 />
+                <Text>Password:</Text>
                 <TextInput
                   style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                   onChangeText={props.handleChange('password')}
@@ -45,7 +47,7 @@ class LogInScreen extends React.Component<any> {
 
                   secureTextEntry={true} />
                 <Button title='Log in' onPress={props.handleSubmit} />
-                <Button title='Register' onPress={() => console.log('register')} />
+                <Button title='Register' onPress={this.register} />
               </View>
             )}
         </Formik>
@@ -67,6 +69,8 @@ class LogInScreen extends React.Component<any> {
     await AsyncStorage.setItem('token', 'token');
     this.props.navigation.navigate('Main');
   }
+  register = () =>
+    this.props.navigation.navigate('Register')
 }
 
 export default LogInScreen;

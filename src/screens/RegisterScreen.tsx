@@ -1,6 +1,18 @@
 import * as React from 'react';
 import { Formik } from 'formik'
-import { View, TextInput, Button } from 'react-native';
+import { View, TextInput, Button, Text } from 'react-native';
+import { client } from '../../App';
+import gql from 'graphql-tag';
+
+const REG = gql`
+mutation addUser($user: UserInput!){
+  addUser(userData: $user){
+    name,
+    id,
+    created
+  }
+}
+`;
 
 export interface RegisterScreenProps {
 
@@ -19,12 +31,21 @@ class RegisterScreen extends React.Component<RegisterScreenProps, RegisterScreen
     return (
       <View>
         <Formik
-          initialValues={{ email: '', password: '', passwordCheck: '' }}
+          initialValues={{ name: '', email: '', password: '', passwordCheck: '' }}
           onSubmit={values => this.register(values)}
         >
           {props =>
             (
               <View>
+                <Text>Name:</Text>
+                <TextInput
+                  style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                  onChangeText={props.handleChange('name')}
+                  onBlur={props.handleBlur('name')}
+                  value={props.values.name}
+
+                />
+                <Text>E-mail</Text>
                 <TextInput
                   style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                   onChangeText={props.handleChange('email')}
@@ -32,6 +53,7 @@ class RegisterScreen extends React.Component<RegisterScreenProps, RegisterScreen
                   value={props.values.email}
 
                 />
+                <Text>Password</Text>
                 <TextInput
                   style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                   onChangeText={props.handleChange('password')}
@@ -39,6 +61,7 @@ class RegisterScreen extends React.Component<RegisterScreenProps, RegisterScreen
                   value={props.values.password}
 
                   secureTextEntry={true} />
+                <Text>Repeat password</Text>
                 <TextInput
                   style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                   onChangeText={props.handleChange('passwordCheck')}
@@ -47,7 +70,7 @@ class RegisterScreen extends React.Component<RegisterScreenProps, RegisterScreen
 
                   secureTextEntry={true} />
                 <Button title='Register' onPress={props.handleSubmit} />
-                <Button title='I already have an account' onPress={() => console.log('register')} />
+                <Button title='I already have an account' onPress={() => this.props.navigation.navigate('LogIn')} />
               </View>
             )}
         </Formik>
@@ -56,9 +79,15 @@ class RegisterScreen extends React.Component<RegisterScreenProps, RegisterScreen
   }
   register = async (values: any) => {
     const userInput = {
-      email: values.email,
-      password: values.password,
+      user:
+      {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      }
     }
+    const response = await client.mutate({ variables: userInput, mutation: REG });
+    this.props.navigation.navigate('LogIn')
   }
 }
 

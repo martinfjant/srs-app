@@ -11,7 +11,7 @@ export const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql',
   request: async (operation) => {
 
-    const token = await AsyncStorage.getItem('TOKEN');
+    const token = await AsyncStorage.getItem('token');
     operation.setContext({
       headers: {
         authorization: token ? `Bearer ${token}` : '',
