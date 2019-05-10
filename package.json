@@ -6,7 +6,8 @@
     "ios": "expo start --ios",
     "eject": "expo eject",
     "test": "node ./node_modules/jest/bin/jest.js --watchAll",
-    "lint": "tslint -p tsconfig.json src /**/*.{ts,tsx}"
+    "lint": "tslint -p tsconfig.json src /**/*.{ts,tsx}",
+    "postinstall": "node ./scripts/stfu.js"
   },
   "jest": {
     "preset": "jest-expo"
