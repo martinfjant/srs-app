@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Text, View, Button, TextInput } from 'react-native';
 import gql from 'graphql-tag';
-import { Mutation, ApolloConsumer } from 'react-apollo';
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 import { client } from '../../App';
 import { SecureStore } from 'expo';
 export interface LoginScreenProps {
@@ -67,19 +66,9 @@ class LogInScreen extends React.Component<any> {
     }
     const response = await client.mutate({ variables: auth, mutation: LOGIN })
     const token = response.data.auth.token;
-
-    try {
-      await SecureStore.setItemAsync('token', token);
-    }
-    catch (e) {
-      console.log(e);
-    }
-
+    await SecureStore.setItemAsync('token', token);
 
     this.props.navigation.navigate('Main');
-
-
-
   }
   register = () =>
     this.props.navigation.navigate('Register')
