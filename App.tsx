@@ -1,9 +1,32 @@
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { AppLoading, Asset, Font, Icon } from 'expo';
-import AppNavigator from './navigation/AppNavigator';
+import { AppLoading, Asset, Font, SecureStore } from 'expo';
+import AppNavigator from './src/navigation/AppNavigator';
+import { Ionicons } from '@expo/vector-icons';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
 
-export default class App extends React.Component {
+/* Clears local storage every time the app runs, this is to ease pains of development.. */
+
+export const client = new ApolloClient({
+  uri: 'http://localhost:3000/graphql',
+  request: async (operation) => {
+
+    const token = await SecureStore.getItemAsync('token');
+
+    operation.setContext({
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+
+    });
+  },
+});
+
+interface AppProps extends React.ReactPropTypes {
+  skipLoadingScreen: boolean;
+}
+export default class App extends React.Component<AppProps> {
   state = {
     isLoadingComplete: false,
   };
@@ -12,22 +35,23 @@ export default class App extends React.Component {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
         <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
+          startAsync={this.loadResourcesAsync}
+          onError={this.handleLoadingError}
+          onFinish={this.handleFinishLoading}
         />
       );
-    } else {
-      return (
+    }
+    return (
+      <ApolloProvider client={client}>
         <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
           <AppNavigator />
         </View>
-      );
-    }
+      </ApolloProvider>
+    );
   }
 
-  _loadResourcesAsync = async () => {
+  loadResourcesAsync = async (): Promise<any> => {
     return Promise.all([
       Asset.loadAsync([
         require('./assets/images/robot-dev.png'),
@@ -35,23 +59,23 @@ export default class App extends React.Component {
       ]),
       Font.loadAsync({
         // This is the font that we are using for our tab bar
-        ...Icon.Ionicons.font,
+        ...Ionicons.font,
         // We include SpaceMono because we use it in HomeScreen.js. Feel free
         // to remove this if you are not using it in your app
         'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
       }),
     ]);
-  };
+  }
 
-  _handleLoadingError = error => {
+  handleLoadingError = (error: any): void => {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry
     console.warn(error);
-  };
+  }
 
-  _handleFinishLoading = () => {
+  handleFinishLoading = (): void => {
     this.setState({ isLoadingComplete: true });
-  };
+  }
 }
 
 const styles = StyleSheet.create({
