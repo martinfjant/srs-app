@@ -1,20 +1,22 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View, AsyncStorage } from 'react-native';
-import { AppLoading, Asset, Font } from 'expo';
+import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { AppLoading, Asset, Font, SecureStore } from 'expo';
 import AppNavigator from './src/navigation/AppNavigator';
 import { Ionicons } from '@expo/vector-icons';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
+/* Clears local storage every time the app runs, this is to ease pains of development.. */
 
 export const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql',
   request: async (operation) => {
 
-    const token = await AsyncStorage.getItem('token');
+    const token = await SecureStore.getItemAsync('token');
+
     operation.setContext({
       headers: {
-        authorization: token ? `Bearer ${token}` : '',
+        authorization: `Bearer ${token}`,
       },
 
     });
