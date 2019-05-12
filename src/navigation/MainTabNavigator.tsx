@@ -7,7 +7,7 @@ import {
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import AddCardScreen from '../screens/AddCardScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import TabBar from './TabBar';
 
@@ -25,11 +25,11 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const AddCardStack = createStackNavigator({
+  AddCard: AddCardScreen,
 });
 
-LinksStack.navigationOptions = {
+AddCardStack.navigationOptions = {
   tabBarLabel: 'Add',
   tabBarIcon: ({ focused }: any) => (
     <TabBarIcon
@@ -56,7 +56,7 @@ SettingsStack.navigationOptions = {
 export default createBottomTabNavigator(
   {
     HomeStack,
-    LinksStack,
+    AddCardStack,
     SettingsStack,
   },
   {
