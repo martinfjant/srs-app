@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { Text, View, AsyncStorage, Button, TextInput } from 'react-native';
+import { Text, View, Button, TextInput } from 'react-native';
 import gql from 'graphql-tag';
 import { Mutation, ApolloConsumer } from 'react-apollo';
 import { Formik, Field } from 'formik';
 import { client } from '../../App';
+import { SecureStore } from 'expo';
 export interface LoginScreenProps {
   foo?: any;
 }
@@ -66,8 +67,19 @@ class LogInScreen extends React.Component<any> {
     }
     const response = await client.mutate({ variables: auth, mutation: LOGIN })
     const token = response.data.auth.token;
-    await AsyncStorage.setItem('token', 'token');
+
+    try {
+      await SecureStore.setItemAsync('token', token);
+    }
+    catch (e) {
+      console.log(e);
+    }
+
+
     this.props.navigation.navigate('Main');
+
+
+
   }
   register = () =>
     this.props.navigation.navigate('Register')

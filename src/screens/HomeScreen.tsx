@@ -36,6 +36,7 @@ export default class HomeScreen extends React.Component {
 
   render() {
     return (
+
       <ImageBackground
         source={require('../../assets/images/palm.jpg')}
         style={{ width: '100%', height: '100%' }}>

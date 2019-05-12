@@ -24,6 +24,7 @@
     "formik": "^1.5.4",
     "graphql": "^14.3.0",
     "graphql-tag": "^2.10.1",
+    "jwt-decode": "^2.2.0",
     "react": "16.5.0",
     "react-apollo": "^2.5.5",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
