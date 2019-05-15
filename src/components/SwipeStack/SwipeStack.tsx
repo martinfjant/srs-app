@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, Vibration } from 'react-native';
+import { Text, Vibration, Alert } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import Card from '../Card';
 import gql from 'graphql-tag';
@@ -8,14 +8,13 @@ import { client } from '../../../App';
 
 export interface SwipeStackProps {
   hidden: boolean;
-  cards: any;
   onFinish: any;
   onRight: any;
 }
 
 const CARD_QUERY = gql`
   {
-    cards {
+    due {
       id,
       front,
       back
@@ -56,21 +55,32 @@ const SwipeStack: React.FunctionComponent<SwipeStackProps> = (props: SwipeStackP
     /* And send! */
     client.mutate({ variables: review, mutation: REV });
   };
+
+  const reveal = (index: number, cards: [any]): void => {
+    const answer = cards[index].back;
+    Alert.alert(answer);
+  }
   return (
     <Query query={CARD_QUERY}>
       {
         ({ data, loading }: any) => {
 
           if (loading) return <Text>Laddar.</Text>;
-          if (!loading) {
+          if (Array.isArray(data.due) && data.due.length >= 1) {
             return <Swiper
-              cards={data.cards}
+              cards={data.due}
               renderCard={Card}
-              onSwipedRight={(index: number): void => review(index, data.cards, 4)}
-              onSwipedLeft={(index: number): void => review(index, data.cards, 2)}
+              onSwipedRight={(index: number): void => review(index, data.due, 4)}
+              onSwipedLeft={(index: number): void => review(index, data.due, 2)}
+              stackSize={5}
+              verticalSwipe={false}
+              backgroundColor={'transparent'}
+              onTapCard={(index: number): void => reveal(index, data.due)}
             />;
 
           }
+          else return <Text>No cards due, go add some more!</Text>;
+
         }
       }
     </Query>

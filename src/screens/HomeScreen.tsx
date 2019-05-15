@@ -1,11 +1,7 @@
 import React, { ReactElement } from 'react';
 import {
-  ScrollView,
   StyleSheet,
-  Text,
-  View,
   ImageBackground,
-  TouchableOpacity,
 } from 'react-native';
 import { BlurView } from 'expo';
 
@@ -27,28 +23,18 @@ export default class HomeScreen extends React.Component {
 
   logger = (input: any): void => console.log(input);
 
-  cards = [
-    { front: 'der Apfel', back: 'the apple' },
-    { front: 'die Brücke', back: 'the bridge' },
-    { front: 'Die Botshaft', back: 'the embassy' },
-    { front: 'Der Mauer', back: 'the mason' },
-  ];
 
   render() {
     return (
 
       <ImageBackground
-        source={require('../../assets/images/palm.jpg')}
+        source={require('../../assets/images/bg2.png')}
         style={{ width: '100%', height: '100%' }}>
         <SwipeStack
           hidden={this.state.hideStack}
-          cards={this.cards}
           onFinish={() => this.setState({ hideStack: true })}
           onRight={() => this.setState({ correct: this.state.correct + 1 })}
         />
-        <BlurView tint='light' intensity={90} style={styles.test}>
-          <Text style={styles.text}>Correct: {this.state.correct}</Text>
-        </BlurView>
       </ImageBackground>
     );
   }

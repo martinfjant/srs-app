@@ -9,6 +9,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import AddCardScreen from '../screens/AddCardScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import CollectionScreen from '../screens/CollectionScreen';
 import TabBar from './TabBar';
 
 const HomeStack = createStackNavigator({
@@ -20,7 +21,7 @@ HomeStack.navigationOptions = {
   tabBarIcon: ({ focused }: any) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-albums' : 'md-information-circle'}
+      name={Platform.OS === 'ios' ? 'ios-albums' : 'md-albums'}
     />
   ),
 };
@@ -34,7 +35,19 @@ AddCardStack.navigationOptions = {
   tabBarIcon: ({ focused }: any) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-add' : 'md-add'}
+      name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'}
+    />
+  ),
+};
+const CollectionStack = createStackNavigator({
+  Collection: CollectionScreen,
+});
+CollectionStack.navigationOptions = {
+  tabBarLabel: 'Collection',
+  tabBarIcon: ({ focused }: any) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-filing' : 'md-filing'}
     />
   ),
 };
@@ -57,6 +70,7 @@ export default createBottomTabNavigator(
   {
     HomeStack,
     AddCardStack,
+    CollectionStack,
     SettingsStack,
   },
   {

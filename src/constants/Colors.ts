@@ -15,7 +15,7 @@ interface IColors {
 
 const Colors: IColors = {
   tintColor: '',
-  tabIconDefault: '#ccc',
+  tabIconDefault: '#7c7c7c',
   tabIconSelected: tintColor,
   tabBar: '#fefefe',
   errorBackground: 'red',

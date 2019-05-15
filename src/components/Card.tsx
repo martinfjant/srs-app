@@ -14,7 +14,7 @@ const Card = (card: any, index: number): React.ReactElement => {
   return (
     <View style={styles.card} key={card.id}>
       <Text style={styles.text}>{card.front}</Text>
-      <Text style={styles.text}>{card.back}</Text>
+      {/* <Text style={styles.text}>{card.back}</Text> */}
     </View>
   );
 };
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    fontSize: 50,
+    fontSize: 35,
     backgroundColor: 'transparent',
   },
 });

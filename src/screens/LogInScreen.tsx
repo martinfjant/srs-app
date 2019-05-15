@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Text, View, Button, TextInput } from 'react-native';
+import { Text, View, Button, TextInput, ImageBackground, StyleSheet } from 'react-native';
 import gql from 'graphql-tag';
 import { Formik } from 'formik';
 import { client } from '../../App';
-import { SecureStore } from 'expo';
+import { SecureStore, BlurView } from 'expo';
 export interface LoginScreenProps {
   foo?: any;
 }
@@ -17,12 +17,14 @@ mutation auth($auth: AuthInput!) {
 
 class LogInScreen extends React.Component<any> {
   static navigationOptions = {
-    title: 'Please sign in',
+    header: null,
   };
 
   render() {
     return (
-      <View>
+      <ImageBackground
+        source={require('../../assets/images/bg2.png')}
+        style={styles.view}>
         <Formik
           initialValues={{ email: '', password: '' }}
           onSubmit={values => this.logInAsync(values)}
@@ -30,28 +32,30 @@ class LogInScreen extends React.Component<any> {
           {props =>
             (
               <View>
-                <Text>E-mail:</Text>
-                <TextInput
-                  style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                  onChangeText={props.handleChange('email')}
-                  onBlur={props.handleBlur('email')}
-                  value={props.values.email}
+                <BlurView tint='light' intensity={90} style={styles.blurview}>
+                  <Text style={styles.label}>E-mail:</Text>
+                  <TextInput
+                    style={styles.textfield}
+                    onChangeText={props.handleChange('email')}
+                    onBlur={props.handleBlur('email')}
+                    value={props.values.email}
 
-                />
-                <Text>Password:</Text>
-                <TextInput
-                  style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                  onChangeText={props.handleChange('password')}
-                  onBlur={props.handleBlur('password')}
-                  value={props.values.password}
+                  />
+                  <Text style={styles.label} > Password:</Text>
+                  <TextInput
+                    style={styles.textfield}
+                    onChangeText={props.handleChange('password')}
+                    onBlur={props.handleBlur('password')}
+                    value={props.values.password}
 
-                  secureTextEntry={true} />
-                <Button title='Log in' onPress={props.handleSubmit} />
-                <Button title='Register' onPress={this.register} />
+                    secureTextEntry={true} />
+                  <Button title='Log in' onPress={props.handleSubmit} />
+                  <Button title='Register' onPress={this.register} />
+                </BlurView>
               </View>
             )}
         </Formik>
-      </View >
+      </ImageBackground>
     );
   }
 
@@ -74,4 +78,37 @@ class LogInScreen extends React.Component<any> {
     this.props.navigation.navigate('Register')
 }
 
+const styles = StyleSheet.create({
+  view: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%'
+  },
+  blurview: {
+    minWidth: "90%",
+    borderRadius: 20,
+    padding: 10,
+    marginTop: "-40%"
+
+  },
+  label: {
+    fontSize: 50,
+    fontWeight: '600',
+    color: 'orange',
+    alignSelf: 'flex-end',
+  },
+  textfield: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    backgroundColor: 'white',
+    borderRadius: 15,
+  },
+  button: {
+    alignSelf: 'flex-start',
+  },
+});
 export default LogInScreen;
+
